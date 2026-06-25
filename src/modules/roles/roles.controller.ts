@@ -40,10 +40,13 @@ export class RolesController {
 
     @Get(':id')
     findOne(
-        @Body('id')
-        id:string,
+        @Param('id')
+        id: string,
+
     ){
-        return this.services.findOne(id);
+        return this.services.findOne(
+            id,
+        );
     }
     
     @Put(':id')
