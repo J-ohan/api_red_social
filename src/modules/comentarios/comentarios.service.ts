@@ -27,7 +27,10 @@ export class ComentariosService {
 
     async findAll() {
         const comentarios = 
-        await this.comentarioModel.find({ activo: true });
+        await this.comentarioModel
+            .find({ activo: true })
+            .populate('publicacion_id')
+            .populate('usuario_id', '-password');
 
         return ResponseHelper.success(comentarios);
     }
