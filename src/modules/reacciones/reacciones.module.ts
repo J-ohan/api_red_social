@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ReaccionesController } from './reacciones.controller';
 import { ReaccionesService } from './reacciones.service';
-import { Reaccion, ReaccionSchema } from './schemas/reaccion.schema';
+import { Reaccion, ReaccionSchema } from './schemas/reacciones-schema';
 
 @Module({
     imports: [

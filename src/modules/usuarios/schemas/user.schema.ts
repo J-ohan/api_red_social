@@ -8,7 +8,7 @@ export type UserDocument = User & Document;
  * */
 
 @Schema({
-    timestamps: true,
+    timestamps: { createdAt: 'fecha_creacion', updatedAt: 'fecha_modificacion' },
     collection: 'usuarios',
 })
 
@@ -30,7 +30,7 @@ export class User {
     password!: string;
 
     @Prop({
-        Type: Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Role',
     })
 

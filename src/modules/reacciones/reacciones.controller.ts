@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Put, Patch, Delete, Param, Body } from '@nestjs/common';
 import { ReaccionesService } from './reacciones.service';
-import { CreateReaccionDto } from './dto/create-reaccion.dto';
-import { UpdateReaccionDto } from './dto/update-reaccion.dto';
+import { CreateReaccionDto } from './dto/create-reacciones.dto';
+import { UpdateReaccionDto } from './dto/update-reacciones.dto';
 
 @Controller('reacciones')
 export class ReaccionesController {
