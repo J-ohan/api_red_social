@@ -62,7 +62,7 @@ export class UsuariosService {
         const limit= Number(search.limit) || 10;
 
         //consulta
-        const data = await this.userModule.find(filter).populate('role_id').skip((page-1)*limit).limit(limit);
+        const data = await this.userModule.find(filter).populate('rol_id').skip((page-1)*limit).limit(limit);
 
         // contador de documentos = contdor de usuarios
         const total = await this.userModule.countDocuments(filter); 
@@ -112,6 +112,25 @@ export class UsuariosService {
     }
 
     /**
+     * actualizacion parcial de usuario
+     */
+
+    async partialUpdate(id:string, dto: UpdateUserDto){
+
+        const user = await this.userModule.findById(id);
+
+        if(!user){
+            throw new NotFoundException('Usuario no encontrado')
+        }
+        if(dto.password){
+            dto.password = await bcrypt.hash(dto.password, 10);}
+
+        const updateuser = await this.userModule.findByIdAndUpdate(id, { $set: dto }, {new: true});
+
+        return ResponseHelper.success(updateuser);
+    }
+
+    /**
      * soft delete
      */
 
@@ -127,6 +146,22 @@ export class UsuariosService {
         const deleteuser = await this.userModule.findByIdAndUpdate(id,{activo: false},{new: true});
 
         return ResponseHelper.success(deleteuser);
+    }
+
+    /**
+     * restaurar usuario
+     */
+
+    async restore(id:string){
+        const user = await this.userModule.findById(id);
+
+        if(!user){
+            throw new NotFoundException('usuario no encontrado')
+        }
+
+        const restoreuser = await this.userModule.findByIdAndUpdate(id,{activo: true},{new: true});
+
+        return ResponseHelper.success(restoreuser);
     }
 
 }
