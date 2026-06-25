@@ -1,7 +1,7 @@
 import { ApiTags } from "@nestjs/swagger";
 import { Controller } from "@nestjs/common";
 import { UsuariosService } from "./usuarios.service";
-import { Body, Get, Post, Query, Param, Put } from "@nestjs/common";
+import { Body, Get, Post, Query, Param, Put, Patch, Delete } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { SearchUserDto } from "./dto/search-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -46,5 +46,27 @@ export class UsuariosController {
         @Body() dto: UpdateUserDto
     ){
         return this.UsuariosService.update(id, dto);
+    }
+
+    @Patch(':id')
+    partialUpdate(
+        @Param('id') id:string,
+        @Body() dto: UpdateUserDto
+    ){
+        return this.UsuariosService.partialUpdate(id, dto);
+    }
+
+    @Patch(':id/restaurar')
+    restore(
+        @Param('id') id:string
+    ){
+        return this.UsuariosService.restore(id);
+    }
+
+    @Delete(':id')
+    remove(
+        @Param('id') id:string
+    ){
+        return this.UsuariosService.remove(id);
     }
 }
